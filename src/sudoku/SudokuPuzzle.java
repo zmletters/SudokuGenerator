@@ -3,6 +3,8 @@ import java.util.Random;
 
 public class SudokuPuzzle {
 	Random random = new Random();
+	private final int GRID_SIZE = 9;
+	private final int SUBGRID_SIZE = 3;
 	private int[][] grid = {
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
