@@ -38,10 +38,76 @@ public class SudokuPuzzle {
 		int n1 = random.nextInt(9) + 1;
 	}
 	
-	public boolean checkRepeat(int i, int j) {
-		// Takes in two constraints i = row position, j column position
-		// This function will check if there is repeating number in the same row, column and 3x3 box
+	public boolean checkRepeat(int[][] b, int r, int c, int n) {
+		// takes in grid in b, row number in r, column number in c, and the number to check as n
+		// check for duplicates in the same row
+		for (int d = 0; d < b.length; d++) {
+			if (b[r][d] == n) {
+				return false;
+			}
+		}
+		
+		// check for duplicates in the same column
+		for (int r1 = 0; r1 < b.length; r1++) {
+			if (b[r1][c] == n ) {
+				return false;
+			}
+		}
+		
+		// check for duplicates in the sub-grid 3x3
+		int sqt = (int) Math.sqrt(b.length);
+		int boxRowSt = r - r % sqt;
+		int boxColSt = c - c % sqt;
+		
+		for (int r1 = boxRowSt; r1 < boxRowSt + sqt; r1++) {
+			for (int d = boxColSt; d < boxColSt + sqt; d++) {
+				if (b[r1][d] == n) {
+					return false;
+				}
+			}
+		}
 		
 		return true;
+	}
+	
+	public boolean solveSudoku(int[][] b, int num) {
+		int r = -1;
+		int c = -1;
+		boolean isVacant = true;
+		for (int i = 0; i < num; i++) {
+			for (int j = 0; j < num; j++) {
+				if (b[i][j] == 0) {
+					r = i;
+					c = j;
+					
+					//if false, means there is vacant cells
+					isVacant = false;
+					break;
+				}
+			}
+			
+			if (!isVacant) {
+				break;
+			}
+		}
+		
+		// if there is no empty space left
+		if (isVacant) {
+			return true;
+		}
+		
+		//otherwise do backtracking for each row
+		for (int no = 1; no <= num; no++) {
+			if (checkRepeat(b, r, c, no)) {
+				b[r][c] = no;
+				if (solveSudoku(b,num)) {
+					//to display here if needed
+					return true;
+				} else {
+					b[r][c] = 0;
+				}
+			}
+		}
+		return false;
 	}
 }

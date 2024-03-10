@@ -7,6 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		//Tutorial here
 		//https://www.youtube.com/watch?v=Kmgo00avvEw
+		
 		/*
 		JFrame frame = new JFrame();
 		frame.setTitle("Sudoku"); //Title
