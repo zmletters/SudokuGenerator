@@ -5,7 +5,7 @@ public class SudokuPuzzle {
 	Random random = new Random();
 	private final int GRID_SIZE = 9;
 	private final int SUBGRID_SIZE = 3;
-	private int[][] grid = {
+	/*private int[][] grid = {
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
@@ -15,7 +15,18 @@ public class SudokuPuzzle {
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0}
-	};
+	};*/
+	private final int[][] grid = new int[][] {
+		{ 7, 0, 0, 0, 0, 0, 2, 0, 0 },
+        { 4, 0, 2, 0, 0, 0, 0, 0, 3 },
+        { 0, 0, 0, 2, 0, 1, 0, 0, 0 },
+        { 3, 0, 0, 1, 8, 0, 0, 9, 7 },
+        { 0, 0, 9, 0, 7, 0, 6, 0, 0 },
+        { 6, 5, 0, 0, 3, 2, 0, 0, 1 },
+        { 0, 0, 0, 4, 0, 9, 0, 0, 0 },
+        { 5, 0, 0, 0, 0, 0, 1, 0, 6 },
+        { 0, 0, 6, 0, 0, 0, 0, 0, 8 }
+};
 	public SudokuPuzzle() {
 		// TODO Auto-generated constructor stub
 	}
@@ -24,11 +35,11 @@ public class SudokuPuzzle {
 		System.out.print(grid);
 	}
 	
-	public void displayGrid() {
+	public void displayGrid(int grid[][]) {
 		// Displaying the grid in console
 		for (int i=0;i<9;i++) {
 			for (int j=0;j<9;j++) {
-				System.out.print(grid[i][j]);
+				System.out.print(grid[i][j] + " ");
 			}
 			System.out.print("\n");
 		}
@@ -102,6 +113,8 @@ public class SudokuPuzzle {
 				b[r][c] = no;
 				if (solveSudoku(b,num)) {
 					//to display here if needed
+					displayGrid(b);
+					System.out.println("- - - - - - - - -");
 					return true;
 				} else {
 					b[r][c] = 0;
