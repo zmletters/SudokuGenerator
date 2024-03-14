@@ -5,7 +5,8 @@ public class SudokuPuzzle {
 	Random random = new Random();
 	private final int GRID_SIZE = 9;
 	private final int SUBGRID_SIZE = 3;
-	/*private int[][] grid = {
+	private final int MINIMUM_NUM = 17;
+	private int[][] grid = {
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
@@ -15,8 +16,8 @@ public class SudokuPuzzle {
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0}
-	};*/
-	private final int[][] grid = new int[][] {
+	};
+	/*private final int[][] grid = new int[][] {
 		{ 7, 0, 0, 0, 0, 0, 2, 0, 0 },
         { 4, 0, 2, 0, 0, 0, 0, 0, 3 },
         { 0, 0, 0, 2, 0, 1, 0, 0, 0 },
@@ -26,7 +27,7 @@ public class SudokuPuzzle {
         { 0, 0, 0, 4, 0, 9, 0, 0, 0 },
         { 5, 0, 0, 0, 0, 0, 1, 0, 6 },
         { 0, 0, 6, 0, 0, 0, 0, 0, 8 }
-};
+	};*/
 	public SudokuPuzzle() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,8 +46,35 @@ public class SudokuPuzzle {
 		}
 	}
 	
-	public void generatePuzzle() {
-		int n1 = random.nextInt(9) + 1;
+	public void generatePuzzle(int[][] b) {
+		int r;
+		int c;
+		int n = 0;
+		boolean noRepeat = false;
+		
+		for (int count = 0; count < MINIMUM_NUM; count++) {
+			noRepeat = false;
+			r = random.nextInt(9);
+			c = random.nextInt(9);
+			while (b[r][c] != 0 ) {
+				r = random.nextInt(9);
+				c = random.nextInt(9);
+			}
+			
+			while (b[r][c] == 0) {
+				while (!noRepeat) {
+					n = random.nextInt(9) + 1;
+					if (checkRepeat(b,r,c,n)) {
+						b[r][c] = n;
+						noRepeat = true;
+					}
+				}
+				if (noRepeat) {
+					break;
+				}
+			} 
+			//System.out.println(count + ": " + r + " " + c + " = " + n);
+		}
 	}
 	
 	public boolean checkRepeat(int[][] b, int r, int c, int n) {
@@ -113,8 +141,8 @@ public class SudokuPuzzle {
 				b[r][c] = no;
 				if (solveSudoku(b,num)) {
 					//to display here if needed
-					displayGrid(b);
-					System.out.println("- - - - - - - - -");
+					//displayGrid(b);
+					//System.out.println("- - - - - - - - -");
 					return true;
 				} else {
 					b[r][c] = 0;

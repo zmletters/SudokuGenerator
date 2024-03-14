@@ -7,6 +7,8 @@ public class test {
 	}
 
 	public static void main(String[] args) {
+		SudokuPuzzle sd = new SudokuPuzzle();
+		
 		int[][] b = new int[][] {
 			{ 7, 0, 0, 0, 0, 0, 2, 0, 0 },
             { 4, 0, 2, 0, 0, 0, 0, 0, 3 },
@@ -18,13 +20,49 @@ public class test {
             { 5, 0, 0, 0, 0, 0, 1, 0, 6 },
             { 0, 0, 6, 0, 0, 0, 0, 0, 8 }
 		};
-		// TODO Auto-generated method stub
-		SudokuPuzzle sd = new SudokuPuzzle();
+		int[][] grid = new int[][] {
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0}
+		};
+
+		/*
 		System.out.println("The puzzle is:");
 		sd.displayGrid(b);
 		System.out.println("The solution is:");
 		sd.solveSudoku(b, 9);
 		sd.displayGrid(b);
+		*/
+		sd.generatePuzzle(grid);
+		System.out.println("The puzzle is:");
+		sd.displayGrid(grid);
+
+		while (!sd.solveSudoku(grid, 9)) {
+			System.out.println("Puzzle Unsolvable...");
+			grid = new int[][] {
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0,0}
+			};
+			System.out.println("The puzzle is:");
+			sd.generatePuzzle(grid);
+			sd.displayGrid(grid);
+		}
+		System.out.println("The solution is:");
+		sd.solveSudoku(grid, 9);
+		sd.displayGrid(grid);
 	}
 
 }
